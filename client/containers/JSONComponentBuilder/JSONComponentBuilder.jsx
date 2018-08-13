@@ -165,35 +165,11 @@ class JSONComponentBuilder extends Component {
     }
   }
 
-  updateJsonObjData = (data, parentData) => {
-    if (Array.isArray(parentData)) {
-      return map(parentData, (json) => {
-        if (data[0].parent_id === json.id) {
-          const newParentData = cloneDeep(json);
-          newParentData.value.children = data;
-          return newParentData;
-        }
-        if (json.value.children) {
-          return this.updateJsonObjData(data, json.value.children);
-        }
-        return json;
-      });
-    } else if (Array.isArray(data) && data[0].parent_id === parentData.id) {
-      const newParentData = parentData;
-      newParentData.value.children = data;
-      return newParentData;
-    } else if (jsonObj.value.children) {
-      return this.updateJsonObjData(data, jsonObj.children);
-    }
-    return parentData;
-  }
-
   updateCMDData = async (data) => {
     const { jsonObj } = this.state;
     // let updatedjsonObj = { ...jsonObj };
     if (data) {
       this.updateNode(jsonObj.body, data[0].parent_id, data);
-      // updatedjsonObj = this.updateJsonObjData(data, jsonObj.body);
     }
     this.setState({
       jsonObj: {
