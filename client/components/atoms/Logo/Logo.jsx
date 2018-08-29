@@ -7,15 +7,15 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // External Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import React, { Component } from 'react';
-import { Image, Grid, Heading } from 'unchained-ui-react';
-import { NavLink } from 'react-router-dom';
-import { pushToDataLayer } from 'analytics';
-import st from 'constants/strings';
+import React, { Component } from "react";
+import { Image, Grid, Heading } from "unchained-ui-react";
+import { NavLink } from "react-router-dom";
+import { pushToDataLayer } from "analytics";
+import st from "constants/strings";
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import './Logo.scss';
+import "./Logo.scss";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Component Definition
@@ -23,13 +23,13 @@ import './Logo.scss';
 
 class Logo extends Component {
   props: {
-    logo: '',
-    altText: '',
-    logoText: ''
+    logo: "",
+    altText: "",
+    logoText: ""
   };
 
   static defaultProps = {
-    logoText: 'Equity Research'
+    logoText: "Equity Research"
   };
 
   state = {
@@ -40,13 +40,21 @@ class Logo extends Component {
     // Component ready
   }
   render() {
-    const { altText, logo, logoText } = this.props;
+    const { altText, image: logo, logoText } = this.props.data[0].value;
     return (
       <Grid.Column className="bmo-logo" mobile={12} tablet={12} computer={3}>
         <div className="logo">
-          <NavLink to={'/'} onClick={() => pushToDataLayer('common', 'bmoLogoClick')}>
-            <Image alt={altText} src={logo} title={st.bmoLogo} className="bmo-header-logo" />
-            <Heading content={logoText} className={'logo-text'} />
+          <NavLink
+            to={"/"}
+            onClick={() => pushToDataLayer("common", "bmoLogoClick")}
+          >
+            <Image
+              alt={altText}
+              src={logo}
+              title={st.bmoLogo}
+              className="bmo-header-logo"
+            />
+            <Heading content={logoText} className={"logo-text"} />
           </NavLink>
         </div>
       </Grid.Column>

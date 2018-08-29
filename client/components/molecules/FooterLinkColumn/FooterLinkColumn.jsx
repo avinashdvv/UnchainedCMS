@@ -7,13 +7,13 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // External Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import React, { Component } from 'react';
-import { Grid, Heading } from 'unchained-ui-react';
+import React, { Component } from "react";
+import { Grid, Heading } from "unchained-ui-react";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import './FooterLinkColumn.scss';
+import "./FooterLinkColumn.scss";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Component Definition
@@ -21,15 +21,14 @@ import './FooterLinkColumn.scss';
 
 class FooterLinkColumn extends Component {
   props: {
-    sectionTitle: '',
-    children: {},
+    sectionTitle: "",
+    children: {}
   };
 
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   state = {
-    isExpanded: false,
+    isExpanded: false
   };
   expand = () => {
     const isExpanded = !this.state.isExpanded;
@@ -40,22 +39,30 @@ class FooterLinkColumn extends Component {
   }
 
   render() {
-    const { sectionTitle, children } = this.props;
+    const { children } = this.props;
+    const { sectionTitle } = this.props.data[0];
     const showLink = true;
-    return (
-      showLink ?
-        <Grid.Column className={'footer-link-column'} computer={3} mobile={12} tablet={3}>
-          <Heading content={sectionTitle} className="footer-link-section-title" />
-          <div className={`footer-link-section-title-mobile ${this.state.isExpanded.toString()}`}>
-            <Heading className="links-title" onClick={this.expand}>{sectionTitle}<i aria-hidden="true" className="bmo_chevron bottom" /> </Heading>
-          </div>
-          <div className={`links-set ${this.state.isExpanded.toString()}`}>
-            {children}
-          </div>
-        </Grid.Column>
-        :
-        null
-    );
+    return showLink ? (
+      <Grid.Column
+        className={"footer-link-column"}
+        computer={3}
+        mobile={12}
+        tablet={3}
+      >
+        <Heading content={sectionTitle} className="footer-link-section-title" />
+        <div
+          className={`footer-link-section-title-mobile ${this.state.isExpanded.toString()}`}
+        >
+          <Heading className="links-title" onClick={this.expand}>
+            {sectionTitle}
+            <i aria-hidden="true" className="bmo_chevron bottom" />{" "}
+          </Heading>
+        </div>
+        <div className={`links-set ${this.state.isExpanded.toString()}`}>
+          {children}
+        </div>
+      </Grid.Column>
+    ) : null;
   }
 }
 

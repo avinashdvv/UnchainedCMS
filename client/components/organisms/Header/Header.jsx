@@ -7,8 +7,12 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // External Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import React, { Component } from 'react';
-import { Container } from 'unchained-ui-react';
+import React, {
+  Component
+} from 'react';
+import {
+  Container
+} from 'unchained-ui-react';
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
@@ -24,8 +28,7 @@ class Header extends Component {
     children: {},
   };
 
-  state = {
-  };
+  state = {};
 
   componentDidMount() {
     // Component ready
@@ -36,10 +39,14 @@ class Header extends Component {
       children,
     } = this.props;
 
-    return (
-      <Container className="header-container" id={'mainPageHeader'} >
-        {children}
-      </Container>
+    return ( <
+      Container className = "header-container"
+      id = {
+        'mainPageHeader'
+      } > {
+        children
+      } <
+      /Container>
     );
   }
 }

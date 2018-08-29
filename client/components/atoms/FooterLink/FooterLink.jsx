@@ -7,16 +7,16 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // External Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { pushToDataLayer } from 'analytics';
-import { Container, Button, Heading } from 'unchained-ui-react';
-import { BmoPopUp } from 'components';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { pushToDataLayer } from "analytics";
+import { Container, Button, Heading } from "unchained-ui-react";
+import { BmoPopUp } from "components";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import './FooterLink.scss';
+import "./FooterLink.scss";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Component Definition
@@ -24,10 +24,10 @@ import './FooterLink.scss';
 
 class FooterLink extends Component {
   props: {
-    to: '',
-    text: '',
-    forLoggedInUserField: bool,
-    forRDSUserField: bool,
+    to: "",
+    text: "",
+    forLoggedInUserField: boolean,
+    forRDSUserField: boolean
   };
 
   static defaultProps = {
@@ -38,17 +38,22 @@ class FooterLink extends Component {
     forceHide: false
   };
 
-  handleNavClick = (label) => {
-    pushToDataLayer('common', 'footerLinks', { label });
-  }
+  handleNavClick = label => {
+    pushToDataLayer("common", "footerLinks", { label });
+  };
   handleCloseDiv = () => {
     this.setState({ forceHide: true });
-  }
+  };
   clickFunction = () => {
     this.setState({ forceHide: false });
-  }
+  };
   render() {
-    const { to, text, forLoggedInUserField, forRDSUserField } = this.props;
+    const {
+      to,
+      text,
+      forLoggedInUserField,
+      forRDSUserField
+    } = this.props.data[0].value;
     if (to.url) {
       if (forLoggedInUserField || forRDSUserField) {
         return (
@@ -73,8 +78,9 @@ class FooterLink extends Component {
                   />
                   <Container className="form-container">
                     <Container className="not-logged-div">
-                      <Heading as={'h1'}>
-                        This feature accessible to logged in or registered clients only.
+                      <Heading as={"h1"}>
+                        This feature accessible to logged in or registered
+                        clients only.
                       </Heading>
                     </Container>
                   </Container>
@@ -83,10 +89,14 @@ class FooterLink extends Component {
             </a>
           </div>
         );
-      } else if (to.link_target !== 'newTab') {
+      } else if (to.link_target !== "newTab") {
         return (
           <div className="footer-links-set">
-            <NavLink to={to.url} onClick={() => this.handleNavClick(text)} className="footer-link">
+            <NavLink
+              to={to.url}
+              onClick={() => this.handleNavClick(text)}
+              className="footer-link"
+            >
               {text}
             </NavLink>
           </div>
@@ -94,7 +104,13 @@ class FooterLink extends Component {
       }
       return (
         <div className="footer-links-set">
-          <a href={to.url} target="_blank" rel="noopener noreferrer" onClick={() => this.handleNavClick(text)} className="footer-link">
+          <a
+            href={to.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => this.handleNavClick(text)}
+            className="footer-link"
+          >
             {text}
           </a>
         </div>
@@ -103,6 +119,5 @@ class FooterLink extends Component {
     return null;
   }
 }
-
 
 export default FooterLink;

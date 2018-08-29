@@ -1,37 +1,40 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import {
-  Icon,
-  Button,
-} from 'unchained-ui-react';
+import { Icon, Button } from "unchained-ui-react";
 
 // import { updateCMDData } from 'api/auth';
 
-import BaseComponentEditModal from './BaseComponentEditModal';
+import BaseComponentEditModal from "./BaseComponentEditModal";
 
 class ComponentEditor extends React.Component {
   static propTypes = {
     jsonObj: PropTypes.object,
     children: PropTypes.object,
     updateJsonData: PropTypes.func,
-    componentData: PropTypes.object,
+    componentData: PropTypes.object
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      showComponentSpecificPopup: false,
+      showComponentSpecificPopup: false
     };
   }
 
   hidePopup = () => {
-    this.setState({ showComponentSpecificPopup: false, editableDataPoints: null });
-  }
+    this.setState({
+      showComponentSpecificPopup: false,
+      editableDataPoints: null
+    });
+  };
 
-  showComponentSpecificPopup = (props) => {
-    this.setState({ showComponentSpecificPopup: true, editableDataPoints: props });
-  }
+  showComponentSpecificPopup = props => {
+    this.setState({
+      showComponentSpecificPopup: true,
+      editableDataPoints: props
+    });
+  };
 
   updateNode = (data, nodeId, changedData) => {
     if (Array.isArray(data)) {
@@ -42,9 +45,9 @@ class ComponentEditor extends React.Component {
         return this.updateNode(item.value.children, nodeId, changedData);
       });
     }
-  }
+  };
 
-  updateCMDData = async (data) => {
+  updateCMDData = async data => {
     const { jsonObj, updateJsonData } = this.props;
     if (data) {
       this.updateNode(jsonObj.body, data[0].parent_id, data);
@@ -57,35 +60,32 @@ class ComponentEditor extends React.Component {
     //   }
     // );
     updateJsonData({
-      ...jsonObj,
+      ...jsonObj
     });
     this.hidePopup();
-  }
+  };
 
   render() {
-    const {
-      showComponentSpecificPopup,
-      editableDataPoints,
-    } = this.state;
-    const {
-      children,
-      componentData,
-    } = this.props;
+    const { showComponentSpecificPopup, editableDataPoints } = this.state;
+    const { children, componentData } = this.props;
     return (
       <div className="unchainedEditableEl">
         <div className="unchainedEditableBtn">
-          <Button icon className="editButtonUnchainedEditableEl" onClick={() => this.showComponentSpecificPopup(componentData)}>
+          <Button
+            icon
+            className="editButtonUnchainedEditableEl"
+            onClick={() => this.showComponentSpecificPopup(componentData)}
+          >
             <Icon name="edit" />
           </Button>
         </div>
         {children}
-        {
-          showComponentSpecificPopup &&
-            <BaseComponentEditModal
-              editableDataPoints={editableDataPoints}
-              cancelCB={this.updateCMDData}
-            />
-        }
+        {showComponentSpecificPopup && (
+          <BaseComponentEditModal
+            editableDataPoints={editableDataPoints}
+            cancelCB={this.updateCMDData}
+          />
+        )}
       </div>
     );
   }
